@@ -1,0 +1,88 @@
+body{
+    background: #F8F8FF;
+    color: #595959;
+}
+
+.slideContent p{
+    font-size: 0.7em;
+}
+
+.blue{ color: #0b7aae;}
+
+.left{
+    float:left;
+}
+
+.slideContent li{
+    line-height: 1.25em;
+}
+
+#box-container{
+    margin: 0;
+    padding: 0;
+    height: auto;
+    color: #0b7aae;
+}
+
+#box-container .box{
+    position: relative;
+    border: 4px solid #0b7aae;
+    margin: 0 0.1em;
+    padding: 0.2em;
+    min-width: 150px;
+}
+
+#box-container .title{
+    font-size: 0.6em;
+    font-weight: bold;
+}
+
+#box-container .tbl{ 
+    display: table; 
+    height: 2.5em;
+}
+
+#box-container .arrow{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#box-container .subtitle{
+    font-size: 0.5em;
+    margin:0;
+    padding:0;
+}
+
+#smallcap{
+    font-size: 0.7em;
+}
+
+#overlay{
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(10,10,10, 0.9);
+}
+
+#close{
+    position: relative;
+    float: right;
+    color: white;
+    font-size: 1.2em;
+    font-size:bolder;
+    margin-right: 0.25em;
+    margin-top: 0.25em;
+    border: 4px solid white;
+    padding: 0.25em;
+}
+
+#close:hover{
+    cursor:pointer;
+}
+
+#instructions:hover{
+    cursor:pointer;
+    color: blue;
+}

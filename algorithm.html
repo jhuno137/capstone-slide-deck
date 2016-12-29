@@ -1,0 +1,57 @@
+<html>
+<head>
+<style>
+.left{
+    float:left;
+}
+
+#box-container{
+    height: 5em;
+    color: #0b7aae;
+}
+
+.box{
+    margin: 0 1em;
+    padding: 0.5em;
+    border: 2px solid #0b7aae;
+    width: auto;
+    font-size: 1em;
+}
+
+.tbl{ display: table; }
+
+.arrow{
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 1.5em;
+}
+
+.subtitle{
+    font-size: 0.7em;
+}
+</style>
+</head>
+<body>
+<div id="box-container">
+    <div class="box left">
+        <div class="title">Input</div>
+        <div class="subtitle">User type words</div>
+    </div>
+    <div class="tbl left"><span class="arrow">&#8680;</span></div>
+    <div class="box left">
+        <div class="title">Markov Chain</div>
+        <div class="subtitle">Candidates Selection</div>
+    </div>
+    <div class="tbl left"><span class="arrow">&#8680;</span></div>
+    <div class="box left">
+        <div class="title">Stupid Backoff</div>
+        <div class="subtitle">Predictions scores</div>
+    </div>
+    <div class="tbl left"><span class="arrow">&#8680;</span></div>
+    <div class="box left">
+        <div class="title">Output</div>
+        <div class="subtitle">Top three predictions</div>
+    </div>
+</div>
+</body>
+</html>

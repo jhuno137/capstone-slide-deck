@@ -1,0 +1,155 @@
+Capstone - Next Word Prediction
+========================================================
+author: Antonio Camacho
+date: 
+autosize: true
+css: custom.css
+
+Objective
+========================================================
+  
+The purpose of this project is to build a Shiny web application capable of
+predicting the *most likely next word* that will follow a string of words
+typed by a user, similar to the *fast-typing* feature on cell phones (see 
+<a target="_blank" href="https://swiftkey.com/en">Swiftkey's predictive keyboard</a>).
+  
+<div style="margin:1em auto 1em auto;width:500px">
+<img src="pred-1.png" alt="Predict Web Application" width="400">
+<span style="display:block;"><caption><strong>PredictR Web Application</strong></caption></span>
+</div>
+
+The Data
+========================================================
+
+The [*corpora*](https://en.wikipedia.org/wiki/Text_corpus) used to train the model is composed of three text files from different genres:
+<center>
+<table>
+    <tr>
+        <th>Genre</th>
+        <th>File Size (MB)</th>
+        <th>Lines</th>
+    </tr>
+    <tr>
+        <td>Blogs</td>
+        <td>200</td>
+        <td>899288</td>
+    </tr>
+    <tr>
+        <td>News</td>
+        <td>196</td>
+        <td>1010242</td>
+    </tr>
+    <tr>
+        <td>Twitter</td>
+        <td>159</td>
+        <td>2360148</td>
+    </tr>
+</table>
+</center>
+
+Each file provides a vocabulary unique to its genre. These files will be used
+to build a [*n-gram*](https://en.wikipedia.org/wiki/N-gram) based 
+[*language model*](https://en.wikipedia.org/wiki/Language_model).
+
+Preprocessing
+========================================================
+
+Before building the *language model* the text will be transformed in the 
+following ways:
+<div style="font-size:0.75em;">
+<ul>
+<li>Lowercase</li>
+<li>Remove non Latin-ASCII characters</li>
+<li>Remove punctuation symbols except for the apostrophe symbol &lt;&#39;&gt;</li>
+<li>Remove swear words</li>
+<li>Trim white spaces from the beginning and the end of each line</li>
+</ul>
+</div>
+A random sample of 300000 lines has been taken in order to build the model (
+107825	lines from blogs, 104066 from news and 88109 from twitter). Click 
+[here](https://rpubs.com/jhuno137/text-prediction-milestone-report) for more details.
+  
+The Algorithm
+========================================================
+<div style="font-size:0.75em;margin:0;">
+The language model is based on <i>n-grams</i> (unigrams up to
+four-grams) which are stored in a local SQLite database. The algorithm was 
+tunned with an <i>unseen</i> development set and tested with another different set 
+where the average accuracy on predicting words was about 20%. The prediction 
+algorithm works in the following way:
+</div>
+<div style="font-size:0.75em;margin-top:1em;">
+<ul>
+<li>A Markov Chain has been used for selecting candidates based on the number of observed occurrences</li>
+<li>In order to produce scores for each candidate <i>n-grams</i>, the 
+<a title="Stupid Backoff Algorithm" href="http://www.aclweb.org/anthology/D07-1090.pdf"><i>Stupid Backoff</i></a> smoothing method has been applied </li>
+<li>The top three results are presented
+to the user</li>
+</ul>
+</div> 
+<div id="box-container">
+    <div class="box left">
+        <div class="title">Input</div>
+        <div class="subtitle">User type words</div>
+    </div>
+    <div class="tbl left"><span class="arrow">&#8680;</span></div>
+    <div class="box left">
+        <div class="title">Markov Chain</div>
+        <div class="subtitle">Candidate Selection</div>
+    </div>
+    <div class="tbl left"><span class="arrow">&#8680;</span></div>
+    <div class="box left">
+        <div class="title">Stupid Backoff</div>
+        <div class="subtitle">Prediction scores</div>
+    </div>
+    <div class="tbl left"><span class="arrow">&#8680;</span></div>
+    <div class="box left">
+        <div class="title">Output</div>
+        <div class="subtitle">Top 3 predictions</div>
+    </div>
+</div>
+<div style="clear:both;"></div>
+
+The Application
+========================================================
+   
+<div style="font-size:0.70em;width:70%;float:left;margin-right:2em;">
+<section>
+The application is hosted in <a target="_blank" title="shinyapps site by RStudio" href="https://www.shinyapps.io/"><code>shinyapps.io</code></a> 
+and can be accessed at <a target="_blank" title="PredictR Application" href="https://acamacho.shinyapps.io/predictr/">https://acamacho.shinyapps.io/predictr/</a>.
+</section>
+<h2 id="instructions" style="margin-top:0.75em;">Instructions and Features (Click for visual)</h2>
+<ol>
+<li>Type words in the text input box</li>
+<li>The predictions display shows the top three predictions 
+with the most likely one in the center</li>
+<li>Click on a predicted word to add it to the message</li>
+<li>Click the send button (paper plane icon) to send a message</li>
+<li>Clik on the "fire" icon (top-right) to delete history</li>
+</ol>
+<a title="Author profile in Linkedin" href="https://www.linkedin.com/in/aecamacho"><img height="14px" style="margin:0;padding:0;" src="icon-linkedin.gif">
+<span style="font-size:14px;margin-left:0.5em;">Contact me in linked in</span>
+</a></div>
+<div style="float:left;width:24%;height:auto;">
+<a target="_blank" href="https://acamacho.shinyapps.io/predictr/">
+<img src="app.png" alt="PredictR app">
+<caption><p id="smallcap">PredictR Application</p></caption>
+</a>
+</div>
+<div id="overlay">
+<div id="close">X</div>
+<div>
+<center><img width="400px" src="app-explained.png"></center>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#close").click(function(){
+        $("#overlay").fadeToggle(1000);
+    });
+    $("#instructions").click(function(){
+        $("#overlay").fadeToggle(1000);
+    })
+});
+</script>
